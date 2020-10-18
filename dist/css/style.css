@@ -25,7 +25,7 @@ main {
 }
 
 footer {
-    grid-area: footer;   
+    grid-area: footer;
 }
 
 .entity-display {
@@ -70,7 +70,69 @@ footer {
 }
 
 .data-grid {
-    border: 1px solid;
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    height: 91vh;
+    overflow: scroll;
+    padding: 10px;
 }
+
+.data-grid table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.data-grid th, td {
+    text-align: left;
+    padding: 10px;
+  }
+  
+.data-grid tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.data-grid tr {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+/*Modal*/
+ /* The Modal (background) */
+ .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  } 
