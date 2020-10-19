@@ -1,11 +1,16 @@
-import Entity from "../model/Entity";
-import * as EntityView from "../view/EntityView";
+import Entity from "./model/Entity";
+import * as EntityView from "./view/EntityView";
 import 'ace-builds';
 import 'ace-builds/webpack-resolver';
-import * as Utils from "../js/Utils";
-import * as EntityListView from "../view/EntityListView";
+import * as Utils from "./Utils";
+import * as EntityListView from "./view/EntityListView";
+import ApplicationController from "./controller/ApplicationController";
+import EntityController from './controller/EntityController';
 
 //https://github.com/ajaxorg/ace/wiki/Configuring-Ace
+
+const appController = new ApplicationController();
+const entityController = new EntityController();
 
 
 document.querySelector('a').addEventListener('click', (e) => {
@@ -58,9 +63,4 @@ document.querySelector('.modal-content .close').addEventListener('click', (e) =>
   modal.style.display = "none";
 })
 
-window.onclick = function(event) {
-  let modal = document.querySelector('.modal')
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+
