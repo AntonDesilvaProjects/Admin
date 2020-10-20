@@ -1,5 +1,6 @@
 import { VIEW_ELEMENTS } from "../view/ViewConstants";
 import { CUSTOM_EVENTS } from './EventConstants';
+import { ENTITY_CONFIG } from '../config/EntityConfig';
 import * as Utils from "../Utils";
 
 export default class ApplicationController {
@@ -7,21 +8,15 @@ export default class ApplicationController {
         // register event handlers
         this.initState();
         this.registerEventHandlers();
-        
-
     }
 
     initState() {
-        let eventMap = new Map();
-        const entityNavIds = ['dest-config', 'server', 'template', 'credential', 'source-connection', 'base-connection', 'target-connection', 'flow', 'order'];
-        entityNavIds.forEach(navId => eventMap.set(navId, CUSTOM_EVENTS.on_entity_nav_click));
-        this.NAV_ID_TO_EVENT_MAP = eventMap;
+        this.NAV_ID_TO_EVENT_MAP = new Map();
+        Object.keys(ENTITY_CONFIG).forEach(navId => this.NAV_ID_TO_EVENT_MAP.set(navId, CUSTOM_EVENTS.on_entity_nav_click));
     }
         
-
     registerEventHandlers() {
         VIEW_ELEMENTS.app_navigation.addEventListener('click', this.onNavigationClick.bind(this))
-
         window.onclick = function(event) {
             let modal = document.querySelector('.modal')
             if (event.target == modal) {
