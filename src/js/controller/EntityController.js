@@ -4,6 +4,7 @@ import { CUSTOM_EVENTS } from './EventConstants';
 import { ENTITY_CONFIG } from '../config/EntityConfig';
 import * as EntityListView from "../view/EntityListView";
 import * as EntityView from "../view/EntityView";
+import * as Utils from "../Utils";
 
 export default class EntityController {
     constructor() {
@@ -43,15 +44,16 @@ export default class EntityController {
         window.history.pushState({path: url.toString()}, '', url.toString());
     }
 
-    generateEntityView(navId, entityId, response) {
-        Utils.removeAllChildren(mainView);    
+    generateEntityView(entityType, entityId, response) {
+        Utils.removeAllChildren(VIEW_ELEMENTS.app_main); 
+        const entityConfig = ENTITY_CONFIG[navConfig.entityType];   
         // if entity id is present, the load the single entity view
         if (entityId) {
             let entity = new Entity({ name : "Anton", job : { title : "SE"}}, entityId, "Some Entity");
             EntityView.renderEntity(VIEW_ELEMENTS.app_main, entity);
         } else {
             // otherwise, present the list view
-            EntityListView.renderEntityList(VIEW_ELEMENTS.app_main, [], {});
+            EntityListView.renderEntityList(VIEW_ELEMENTS.app_main, entityConfig.listConfig, {});
         }
         VIEW_ELEMENTS.app_main.classList.remove('loading-mask');
     }
