@@ -12,7 +12,6 @@ import EntityController from './controller/EntityController';
 const appController = new ApplicationController();
 const entityController = new EntityController();
 
-
 document.querySelector('a').addEventListener('click', (e) => {
     
     e.preventDefault();

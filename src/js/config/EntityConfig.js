@@ -1,6 +1,6 @@
 export const ENTITY_CONFIG = {
     'dest-config' : {
-        url : '/authoring/config'
+        url : '/authoring/config/'
     }, 
     'server': {
         url : ''

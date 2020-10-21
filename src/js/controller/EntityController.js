@@ -23,13 +23,12 @@ export default class EntityController {
 
         VIEW_ELEMENTS.app_main.classList.add('loading-mask');
         // make api call - if id is present, fetch entity; otherwise, fetch all the entities
-        const isSingleEntityRequest = config.entityId ? true : false;
-        const url = ENTITY_CONFIG[navConfig.entityType].url + (isSingleEntityRequest ? `/${config.entityId}` : '');
+        const url = ENTITY_CONFIG[navConfig.entityType].url + (config.entityId || '');
         fetch(url, {
             method: 'GET'
         })
         .then(response => response.json())
-        .then((json) => this.generateEntityView(isSingleEntityRequest, json))
+        .then(json => this.generateEntityView(config.entityType, config.entityId, json))
         .catch(this.generateErrorView);
     }
 
@@ -44,7 +43,16 @@ export default class EntityController {
         window.history.pushState({path: url.toString()}, '', url.toString());
     }
 
-    generateEntityView(navId, response) {
+    generateEntityView(navId, entityId, response) {
+        Utils.removeAllChildren(mainView);    
+        // if entity id is present, the load the single entity view
+        if (entityId) {
+            let entity = new Entity({ name : "Anton", job : { title : "SE"}}, entityId, "Some Entity");
+            EntityView.renderEntity(VIEW_ELEMENTS.app_main, entity);
+        } else {
+            // otherwise, present the list view
+            EntityListView.renderEntityList(VIEW_ELEMENTS.app_main, [], {});
+        }
         VIEW_ELEMENTS.app_main.classList.remove('loading-mask');
     }
 

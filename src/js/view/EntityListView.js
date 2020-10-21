@@ -1,4 +1,3 @@
-
 /* 
     columnConfig = [
         {
@@ -7,10 +6,10 @@
         }
     ]
 */
-export const renderEntityList = (columnConfig, data) => {
+export const renderEntityList = (parent, columnConfig, data) => {
     let tableHeaders = `<tr>${columnConfig.map(column => `<th>${column.title}</th>`).join('\n')}</tr>`;
     let tableRows = data.map(dataObj => generateGridRow(columnConfig, dataObj)).join('\n')
-    return `
+    const markup =  `
         <div class="data-grid">
             <table>
                 <tbody>
@@ -20,6 +19,7 @@ export const renderEntityList = (columnConfig, data) => {
             </table>
         </div>
     `
+    parent.insertAdjacentHTML('afterbegin', markup);
 }
 
 const generateGridRow = (columnConfig, dataObj) => {

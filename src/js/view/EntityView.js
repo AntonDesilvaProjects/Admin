@@ -2,7 +2,7 @@ import { renderJsonView } from "./JsonView";
 
 // an entity view consists of 3 things:
 // id, name, and a json representation of the item
-export const renderEntity = entity => {
+export const renderEntity = (parent, entity) => {
     const json_view_id = `ace-editor-${Date.now()}`;
     const markup = `
         <div class="entity-display">     
@@ -21,8 +21,15 @@ export const renderEntity = entity => {
             </div>
         </div>
     `;
-    return {
-        markup: markup,
-        viewId: json_view_id
-    };
+    // insert the entity HTML
+    parent.insertAdjacentHTML('afterbegin', markup);
+
+    // configure editor and attach to above view
+    let editor = ace.edit(entityMarkup.viewId, {
+        readOnly: true,
+        showGutter: true,
+        fontSize: "12px",
+        mode: 'ace/mode/javascript'
+    });
+    editor.session.setValue(JSON.stringify(entity.json, null, 2))
 }
